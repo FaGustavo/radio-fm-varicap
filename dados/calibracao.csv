@@ -1,0 +1,5 @@
+ponto,tensao_varicap_V,frequencia_MHz,data,observacao
+1,1.774,88.3,2026-10-27,ponta de baixo da banda
+2,3.702,97.1,2026-10-27,"antes de gravar, o mapa estimava 97.0 (erro 0.1 MHz)"
+3,3.811,97.5,2026-10-27,primeiro ponto gravado
+4,5.166,101.7,2026-10-27,
