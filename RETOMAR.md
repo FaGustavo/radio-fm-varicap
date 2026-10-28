@@ -1,7 +1,7 @@
 # RETOMAR: onde o projeto parou
 
 > Arquivo para continuar o projeto numa nova sessão (com o Claude ou sozinho).
-> Última atualização: **27/10/2026**
+> Última atualização: **28/10/2026**
 
 ## Objetivo
 Ler a tensão do varicap de um rádio FM com um Arduino Nano, descobrir qual frequência está sintonizada e mostrar no display FIC (4 dígitos de LED, charlieplex de 7 pinos).
@@ -34,6 +34,7 @@ Ler a tensão do varicap de um rádio FM com um Arduino Nano, descobrir qual fre
 
 ## Próximos passos (em ordem)
 1. **Resolver o display derrubando a USB.** Com o display ligado, o Nano aparece como "Dispositivo USB Desconhecido" ou some. Sem ele, volta ao normal. É problema físico (curto ou consumo), não de código. Checklist em `docs/problemas.md`. Comece medindo a resistência entre 5V e GND com o display montado e a USB desligada.
+   - **Enquanto isso:** colocar um DIP switch de 8 vias (ou um conector) nas 7 linhas do display, para gravar o Nano sem desmontar. Ver "Gravar o Nano sem desmontar o display" em `docs/hardware.md`.
 2. **Testar o display** com `.\scripts\upload.ps1 TesteDisplayFIC`. Depois voltar ao `FM_Mapeador`.
 3. **Completar a calibração:** gravar uma estação entre 91 e 94 MHz e uma entre 105 e 108 MHz. Use `.\scripts\serial.ps1 -Comando 93.3` com a estação sintonizada.
 4. **Opcional:**
@@ -41,6 +42,16 @@ Ler a tensão do varicap de um rádio FM com um Arduino Nano, descobrir qual fre
    - capacitor de 100 nF de A0 para o GND;
    - divisor de 1M + 1M, se o divisor estiver puxando a sintonia;
    - nomes das estações na EEPROM.
+
+## Sessão de 28/10/2026 (resumo)
+- Pesquisado o módulo Bluetooth **MH-M18**: sem serial, só pinos MUTE/KEY em algumas versões. Ver `docs/ideias.md`.
+- Planejado o **modo Bluetooth** (chave em AM) e o **aviso de bateria** (< 11,5 V, alternando com a frequência). Pinos D9, D10 e A1. Ver `docs/ideias.md`.
+- Relógio descartado.
+- Analisado por que o display atrapalhou a gravação: pelo circuito, não deveria. A suspeita principal é o display ligado em D0 a D6 em vez de D2 a D8, ou um curto. Ver `docs/problemas.md`.
+- Próximo passo prático: instalar o DIP switch nas 7 linhas do display (`docs/hardware.md`), remontar e fazer uma nova amostragem de tensão × frequência.
+
+## Ideias registradas para depois
+Modo Bluetooth (MH-M18) na posição AM e aviso de bateria abaixo de 11,5 V no **FIC CS 2002**. Pinos e circuitos em `docs/ideias.md`.
 
 ## Como retomar com o Claude
 Abra o Claude Code nesta pasta e diga algo como:

@@ -19,3 +19,24 @@ O CH340 se apresenta ao PC antes do programa rodar, e nesse momento D2 a D8 aind
 2. Display ou resistores encaixados nas trilhas de alimentação (+/−) da protoboard.
 3. Algum fio do display no 5V, 3V3, GND, VIN ou RST em vez de D2 a D8.
 4. Pinos extras do display (se houver mais de 7) com ligação interna de alimentação.
+
+### Análise de 28/10/2026: o display pode atrapalhar a gravação?
+
+Pelo circuito documentado, **não**:
+
+- A gravação usa só **D0 (RX), D1 (TX), RST** e o chip **CH340**.
+- Durante a gravação, D2 a D8 ficam em alta impedância (o bootloader não mexe neles), então nenhuma corrente passa pelos LEDs.
+
+O erro de ontem, "Falha na Solicitação de Descritor", vem do **CH340**, antes até de o ATmega participar. Ele quase sempre indica **5 V da USB caindo** (curto ou consumo), não interferência nos dados. Como na prática o problema aconteceu, **a montagem real deve estar diferente do desenho**.
+
+Suspeitos, do mais provável ao menos provável:
+1. **Display ligado em D0 a D6 em vez de D2 a D8.** Os pinos do display são numerados de 0 a 6 e é fácil ligar o "pino 0" no D0. Isso ocupa o RX e o TX e faz a gravação falhar.
+2. Fio, resistor ou perna de LED encostando no 5V, GND, RST ou nas trilhas de alimentação da protoboard.
+3. Placa do display com contato metálico encostando nos pinos do Nano, ou pino extra ligado à alimentação dentro dela.
+4. GND do rádio com potencial diferente do GND da USB do PC. Testar com o rádio desligado.
+
+Como isolar: instalar o DIP switch nas 7 linhas (ver `hardware.md`).
+- Grava em OFF e falha em ON → o problema está nas 7 linhas (suspeitos 1 e 2).
+- Falha mesmo em OFF → o problema está fora do display (suspeitos 2, 3 e 4).
+
+Antes de tudo, medir a resistência entre 5V e GND com a USB desligada.

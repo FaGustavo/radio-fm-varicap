@@ -31,6 +31,7 @@ docs/
   hardware.md         componentes, ligações e cuidados
   display_fic.md      mapa dos 36 LEDs e API da biblioteca
   problemas.md        problemas encontrados e soluções
+  ideias.md           plano do modo Bluetooth e do aviso de bateria
 scripts/
   upload.ps1          compila e envia para o Nano (bootloader antigo)
   serial.ps1          lê a serial e envia comandos
